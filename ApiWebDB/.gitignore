@@ -1,0 +1,5 @@
+/target/
+
+/src/main/resources/properties/config.properties
+
+/src/main/resources/log4j.properties
