@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,10 +16,12 @@ import com.framework.contex.SpringContex;
 import com.framework.controller.GenericController;
 import com.framework.dto.RespuestaServicio;
 import com.orussystem.dto.DataResponseLogin;
+import com.orussystem.dto.DataResponsePelicula;
 import com.orussystem.dto.DataResponsePeliculas;
 import com.orussystem.modelo.Peliculas;
 import com.orussystem.request.RequestControllerLogin;
 import com.orussystem.response.ResponseControllerLogin;
+import com.orussystem.response.ResponseControllerPelicula;
 import com.orussystem.response.ResponseControllerPeliculas;
 import com.orussystem.services.interfaz.PeliculasService;
 
@@ -57,6 +60,25 @@ public class PeliculasController extends GenericController<Peliculas> {
 			return responseControllerPeliculas;
 		}
 	}	
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody ResponseControllerPelicula getPelicula(@PathVariable("id") long id) {
+		try {
+			return PeliculasService.getPelicula(id);
+		}catch (Exception e) {
+			
+			DataResponsePelicula data = (DataResponsePelicula)SpringContex.getApplicationContext().getBean(DataResponsePelicula.class);
+
+			data.setCodigoRespuesta("error");
+			data.setMensaje(e.getMessage());
+			data.setPelicula(null);
+			
+			ResponseControllerPelicula responseControllerPelicula = (ResponseControllerPelicula)SpringContex.getApplicationContext().getBean(ResponseControllerPelicula.class);
+			responseControllerPelicula.setData(data);
+			return responseControllerPelicula;
+		}
+	}
 	
 }
 
