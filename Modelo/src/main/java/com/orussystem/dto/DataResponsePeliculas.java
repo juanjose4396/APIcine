@@ -1,28 +1,30 @@
 package com.orussystem.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.orussystem.modelo.Peliculas;
 import com.orussystem.modelo.Usuarios;
 
 @Component
-public class DataResponseLogin implements Serializable{
+public class DataResponsePeliculas implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
-	private Usuarios usuario;
 	
 	private String codigoRespuesta;
 	
 	private String mensaje;
+	
+	private List<Peliculas> peliculas;
 
-	public Usuarios getUsuario() {
-		return usuario;
+	public List<Peliculas> getPeliculas() {
+		return peliculas;
 	}
 
-	public void setUsuario(Usuarios usuario) {
-		this.usuario = usuario;
+	public void setPeliculas(List<Peliculas> peliculas) {
+		this.peliculas = peliculas;
 	}
 
 	public String getCodigoRespuesta() {

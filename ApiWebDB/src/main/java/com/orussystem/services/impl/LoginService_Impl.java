@@ -45,7 +45,7 @@ public class LoginService_Impl extends GenericServicesImpl implements LoginServi
 		
 		DataResponseLogin data = (DataResponseLogin)SpringContex.getApplicationContext().getBean(DataResponseLogin.class);
 		data.setCodigoRespuesta("ok");
-		data.setMensaje("Exitoso");
+		data.setMensaje("Login exitoso");
 		data.setUsuario(usuarios.get(0));
 		
 		

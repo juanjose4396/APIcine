@@ -7,7 +7,8 @@ package com.orussystem.repository.utils;
  */
 public enum RepositoryInstance {
 
-	UsuariosDAO("UsuariosDAO_Impl");
+	UsuariosDAO("UsuariosDAO_Impl"),
+	PeliculasDAO("PeliculasDAO_Impl");
 	
 	private String repositorioDAO;
 
