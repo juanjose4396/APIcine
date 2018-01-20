@@ -74,7 +74,8 @@ public class Usuarios implements Serializable{
 		this.password = password;
 	}
 	
-	@OneToMany(targetEntity=Boletas.class, mappedBy="usuario_fk", fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToMany(targetEntity=Boletas.class, mappedBy="usuario_fk", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@JsonIgnore
 	public List<Boletas> getBoleta() {
 		return boleta;
 	}

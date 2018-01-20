@@ -65,7 +65,8 @@ public class Sillas {
 		this.ubicacion = ubicacion;
 	}
 
-	@OneToMany(targetEntity=Boletas.class, mappedBy="silla_fk", fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToMany(targetEntity=Boletas.class, mappedBy="silla_fk", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@JsonIgnore
 	public List<Boletas> getBoleta() {
 		return boleta;
 	}

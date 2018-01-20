@@ -18,11 +18,13 @@ import com.framework.dto.RespuestaServicio;
 import com.orussystem.dto.DataResponseLogin;
 import com.orussystem.dto.DataResponsePelicula;
 import com.orussystem.dto.DataResponsePeliculas;
+import com.orussystem.dto.DataResponseSillas;
 import com.orussystem.modelo.Peliculas;
 import com.orussystem.request.RequestControllerLogin;
 import com.orussystem.response.ResponseControllerLogin;
 import com.orussystem.response.ResponseControllerPelicula;
 import com.orussystem.response.ResponseControllerPeliculas;
+import com.orussystem.response.ResponseControllerSillas;
 import com.orussystem.services.interfaz.PeliculasService;
 
 @RestController
@@ -77,6 +79,25 @@ public class PeliculasController extends GenericController<Peliculas> {
 			ResponseControllerPelicula responseControllerPelicula = (ResponseControllerPelicula)SpringContex.getApplicationContext().getBean(ResponseControllerPelicula.class);
 			responseControllerPelicula.setData(data);
 			return responseControllerPelicula;
+		}
+	}
+	
+	@RequestMapping(value = "/sillas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody ResponseControllerSillas getSillas() {
+		try {
+			return PeliculasService.getSillas();
+		}catch (Exception e) {
+			
+			DataResponseSillas data = (DataResponseSillas)SpringContex.getApplicationContext().getBean(DataResponseSillas.class);
+			data.setCodigoRespuesta("error");
+			data.setMensaje(e.getMessage());
+			
+			
+			ResponseControllerSillas responseControllerSillas = (ResponseControllerSillas)SpringContex.getApplicationContext().getBean(ResponseControllerSillas.class);
+			responseControllerSillas.setData(data);
+			
+			return responseControllerSillas;
 		}
 	}
 	

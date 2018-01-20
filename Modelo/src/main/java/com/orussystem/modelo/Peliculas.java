@@ -99,7 +99,8 @@ public class Peliculas {
 		this.fecha = fecha;
 	}
 	
-	@OneToMany(targetEntity=Boletas.class, mappedBy="pelicula_fk", fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToMany(targetEntity=Boletas.class, mappedBy="pelicula_fk", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@JsonIgnore
 	public List<Boletas> getBoleta() {
 		return boleta;
 	}

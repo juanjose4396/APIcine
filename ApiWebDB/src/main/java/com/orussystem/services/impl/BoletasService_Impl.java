@@ -74,7 +74,7 @@ public class BoletasService_Impl extends GenericServicesImpl implements BoletasS
 		
 		if(contador>=numeroBoletas) {
 			data.setCodigoRespuesta("ok");
-			data.setMensaje("Sillas disponibles"+contador);
+			data.setMensaje("Sillas disponibles");
 			data.setAvailability("true");
 			
 			responseControllerAvailability.setData(data);

@@ -10,15 +10,21 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.framework.contex.SpringContex;
+import com.framework.repository.factory.RepositoryFactory;
 import com.framework.services.GenericServicesImpl;
 import com.orussystem.dto.DataResponseLogin;
 import com.orussystem.dto.DataResponsePelicula;
 import com.orussystem.dto.DataResponsePeliculas;
+import com.orussystem.dto.DataResponseSillas;
 import com.orussystem.modelo.Peliculas;
+import com.orussystem.modelo.Sillas;
 import com.orussystem.repository.dao.PeliculasDAO;
+import com.orussystem.repository.dao.SillasDAO;
+import com.orussystem.repository.utils.RepositoryInstance;
 import com.orussystem.response.ResponseControllerLogin;
 import com.orussystem.response.ResponseControllerPelicula;
 import com.orussystem.response.ResponseControllerPeliculas;
+import com.orussystem.response.ResponseControllerSillas;
 
 @Service("PeliculasService_Impl")
 public class PeliculasService_Impl extends GenericServicesImpl implements PeliculasService{
@@ -70,6 +76,25 @@ public class PeliculasService_Impl extends GenericServicesImpl implements Pelicu
 		responseControllerPelicula.setData(data);
 		
 		return responseControllerPelicula;
+	}
+
+	@Override
+	public ResponseControllerSillas getSillas() throws Exception {
+		
+		SillasDAO SillasDAO = (SillasDAO) RepositoryFactory.getFactory().get(RepositoryInstance.SillasDAO);
+		
+		List<Sillas> sillas = SillasDAO.findFilter(null);
+		
+		DataResponseSillas data = (DataResponseSillas)SpringContex.getApplicationContext().getBean(DataResponseSillas.class);
+		data.setCodigoRespuesta("ok");
+		data.setMensaje("Operacion exitosa");
+		data.setSillas(sillas);
+		
+		
+		ResponseControllerSillas responseControllerSillas = (ResponseControllerSillas)SpringContex.getApplicationContext().getBean(ResponseControllerSillas.class);
+		responseControllerSillas.setData(data);
+		
+		return responseControllerSillas;
 	}
 	
 }
