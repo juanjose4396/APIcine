@@ -45,7 +45,7 @@ public class BoletasService_Impl extends GenericServicesImpl implements BoletasS
 
 		List<Boletas> boletas = BoletasDAO.findPelicula(id);
 		
-		if(boletas==null) {
+		if(boletas.isEmpty()) {
 			data.setCodigoRespuesta("ok");
 			data.setMensaje("Todas las sillas disponibles");
 			data.setAvailability("true");
@@ -81,8 +81,10 @@ public class BoletasService_Impl extends GenericServicesImpl implements BoletasS
 			return responseControllerAvailability;
 		}
 		
+		contador=0;
+		
 		data.setCodigoRespuesta("ok");
-		data.setMensaje("No hay sillas disponibles");
+		data.setMensaje("No hay sillas juntas disponibles");
 		data.setAvailability("false");
 		
 		responseControllerAvailability.setData(data);
@@ -93,7 +95,9 @@ public class BoletasService_Impl extends GenericServicesImpl implements BoletasS
 	public List<String> obtenerSillasOcupadas(List<Boletas> boletas){
 		List<String> sillasOcupadas = new ArrayList<>();
 		boletas.forEach(boleta -> {
-			sillasOcupadas.add(boleta.getSilla_fk().getUbicacion());
+			if(sillasOcupadas.contains(boleta.getSilla_fk())==false) {
+				sillasOcupadas.add(boleta.getSilla_fk().getUbicacion());
+			}
 		});
 		
 		return sillasOcupadas;

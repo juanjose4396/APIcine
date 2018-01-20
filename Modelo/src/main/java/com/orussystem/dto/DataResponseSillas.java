@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-
-import com.orussystem.modelo.Peliculas;
 import com.orussystem.modelo.Sillas;
-import com.orussystem.modelo.Usuarios;
 
 @Component
 public class DataResponseSillas implements Serializable{
@@ -20,6 +17,15 @@ public class DataResponseSillas implements Serializable{
 	
 	private List<Sillas> sillas;
 	
+	private List<Sillas> sillasOcupadas;
+	
+	public List<Sillas> getSillasOcupadas() {
+		return sillasOcupadas;
+	}
+
+	public void setSillasOcupadas(List<Sillas> sillasOcupadas) {
+		this.sillasOcupadas = sillasOcupadas;
+	}
 
 	public List<Sillas> getSillas() {
 		return sillas;

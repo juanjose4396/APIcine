@@ -3,6 +3,7 @@ package com.orussystem.services.impl;
 
 import com.orussystem.services.interfaz.PeliculasService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +13,16 @@ import org.springframework.stereotype.Service;
 import com.framework.contex.SpringContex;
 import com.framework.repository.factory.RepositoryFactory;
 import com.framework.services.GenericServicesImpl;
-import com.orussystem.dto.DataResponseLogin;
 import com.orussystem.dto.DataResponsePelicula;
 import com.orussystem.dto.DataResponsePeliculas;
 import com.orussystem.dto.DataResponseSillas;
+import com.orussystem.modelo.Boletas;
 import com.orussystem.modelo.Peliculas;
 import com.orussystem.modelo.Sillas;
+import com.orussystem.repository.dao.BoletasDAO;
 import com.orussystem.repository.dao.PeliculasDAO;
 import com.orussystem.repository.dao.SillasDAO;
 import com.orussystem.repository.utils.RepositoryInstance;
-import com.orussystem.response.ResponseControllerLogin;
 import com.orussystem.response.ResponseControllerPelicula;
 import com.orussystem.response.ResponseControllerPeliculas;
 import com.orussystem.response.ResponseControllerSillas;
@@ -79,22 +80,36 @@ public class PeliculasService_Impl extends GenericServicesImpl implements Pelicu
 	}
 
 	@Override
-	public ResponseControllerSillas getSillas() throws Exception {
+	public ResponseControllerSillas getSillas(Long id) throws Exception {
 		
 		SillasDAO SillasDAO = (SillasDAO) RepositoryFactory.getFactory().get(RepositoryInstance.SillasDAO);
+		BoletasDAO BoletasDAO = (BoletasDAO) RepositoryFactory.getFactory().get(RepositoryInstance.BoletasDAO);
+		List<Boletas> boletas = BoletasDAO.findPelicula(id);
 		
 		List<Sillas> sillas = SillasDAO.findFilter(null);
+		List<Sillas> sillasOcupadas= obtenerSillasOcupadas(boletas);
 		
 		DataResponseSillas data = (DataResponseSillas)SpringContex.getApplicationContext().getBean(DataResponseSillas.class);
 		data.setCodigoRespuesta("ok");
 		data.setMensaje("Operacion exitosa");
 		data.setSillas(sillas);
-		
+		data.setSillasOcupadas(sillasOcupadas);
 		
 		ResponseControllerSillas responseControllerSillas = (ResponseControllerSillas)SpringContex.getApplicationContext().getBean(ResponseControllerSillas.class);
 		responseControllerSillas.setData(data);
 		
 		return responseControllerSillas;
+	}
+	
+	public List<Sillas> obtenerSillasOcupadas(List<Boletas> boletas){
+		List<Sillas> sillasOcupadas = new ArrayList<>();
+		boletas.forEach(boleta -> {
+			if(sillasOcupadas.contains(boleta.getSilla_fk())==false) {
+				sillasOcupadas.add(boleta.getSilla_fk());
+			}
+		});
+		
+		return sillasOcupadas;
 	}
 	
 }

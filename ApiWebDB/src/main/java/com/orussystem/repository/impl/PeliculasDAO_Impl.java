@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.framework.repository.GenericDAOImpl;
 import com.orussystem.modelo.Peliculas;
-import com.orussystem.modelo.Usuarios;
 import com.orussystem.repository.dao.PeliculasDAO;
 
 @Repository("PeliculasDAO_Impl")
@@ -22,7 +21,9 @@ public class PeliculasDAO_Impl extends GenericDAOImpl<Peliculas, Serializable> i
 
 	@Override
 	public List<Peliculas> findFilter(Peliculas t) throws Exception {
-		Criteria criteria = getSession().createCriteria(Peliculas.class, "p").addOrder(Order.asc("id"));
+		Criteria criteria = getSession().createCriteria(Peliculas.class, "p")
+				.addOrder(Order.asc("id"))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.list();
 	}
 

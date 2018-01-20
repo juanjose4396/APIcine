@@ -32,10 +32,6 @@ public class BoletasDAO_Impl extends GenericDAOImpl<Boletas, Serializable> imple
 			criteria.createCriteria("pelicula_fk","p").add(Restrictions.eq("p.id",id));
 			return criteria.list();
 		}
-		
-		if(criteria.list().isEmpty()) {
-			return null;
-		}
 		return criteria.list();
 	}
 

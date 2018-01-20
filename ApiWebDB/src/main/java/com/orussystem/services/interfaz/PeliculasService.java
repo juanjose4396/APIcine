@@ -11,6 +11,6 @@ public interface PeliculasService extends GenericServices{
 	
 	public ResponseControllerPelicula getPelicula(Long id) throws Exception;
 	
-	public ResponseControllerSillas getSillas() throws Exception;
+	public ResponseControllerSillas getSillas(Long id) throws Exception;
 
 }
