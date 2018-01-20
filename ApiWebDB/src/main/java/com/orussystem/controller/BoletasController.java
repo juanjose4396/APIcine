@@ -1,5 +1,7 @@
 package com.orussystem.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import com.orussystem.dto.DataResponsePelicula;
 import com.orussystem.dto.DataResponsePeliculas;
 import com.orussystem.modelo.Boletas;
 import com.orussystem.modelo.Peliculas;
+import com.orussystem.request.RequestControllerCompra;
 import com.orussystem.request.RequestControllerLogin;
 import com.orussystem.response.ResponseControllerAvailability;
 import com.orussystem.response.ResponseControllerLogin;
@@ -61,6 +64,27 @@ public class BoletasController extends GenericController<Boletas> {
 			ResponseControllerAvailability responseControllerAvailability = (ResponseControllerAvailability)SpringContex.getApplicationContext().getBean(ResponseControllerAvailability.class);
 			responseControllerAvailability.setData(data);
 			return responseControllerAvailability;
+		}
+	}
+	
+	@RequestMapping(value = "/compra", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody ResponseControllerLogin crearBoletas(@RequestBody RequestControllerCompra requestControllerCompra) {
+		try {
+			Long idUsuario = requestControllerCompra.getData().getIdUsuario();
+			Long idPelicula = requestControllerCompra.getData().getIdPelicula();
+			List<Long> sillas = requestControllerCompra.getData().getSillas();
+			return BoletasService.crearBoletas(idUsuario,idPelicula,sillas);
+		}catch (Exception e) {
+			
+			DataResponseLogin data = (DataResponseLogin)SpringContex.getApplicationContext().getBean(DataResponseLogin.class);
+			ResponseControllerLogin responseControllerLogin = (ResponseControllerLogin)SpringContex.getApplicationContext().getBean(ResponseControllerLogin.class);
+			
+			data.setCodigoRespuesta("error");
+			data.setMensaje(e.getMessage());
+			
+			responseControllerLogin.setData(data);;
+			return responseControllerLogin;
 		}
 	}
 	

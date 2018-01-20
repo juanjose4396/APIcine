@@ -14,12 +14,18 @@ import com.framework.contex.SpringContex;
 import com.framework.repository.factory.RepositoryFactory;
 import com.framework.services.GenericServicesImpl;
 import com.orussystem.dto.DataResponseAvailability;
+import com.orussystem.dto.DataResponseLogin;
 import com.orussystem.modelo.Boletas;
+import com.orussystem.modelo.Peliculas;
 import com.orussystem.modelo.Sillas;
+import com.orussystem.modelo.Usuarios;
 import com.orussystem.repository.dao.BoletasDAO;
+import com.orussystem.repository.dao.PeliculasDAO;
 import com.orussystem.repository.dao.SillasDAO;
+import com.orussystem.repository.dao.UsuariosDAO;
 import com.orussystem.repository.utils.RepositoryInstance;
 import com.orussystem.response.ResponseControllerAvailability;
+import com.orussystem.response.ResponseControllerLogin;
 
 @Service("BoletasService_Impl")
 public class BoletasService_Impl extends GenericServicesImpl implements BoletasService{
@@ -89,6 +95,44 @@ public class BoletasService_Impl extends GenericServicesImpl implements BoletasS
 		
 		responseControllerAvailability.setData(data);
 		return responseControllerAvailability;
+
+	}
+	
+	@Override
+	public ResponseControllerLogin crearBoletas(Long idUsuario, Long idPelicula,List<Long> sillas) throws Exception {
+		
+		SillasDAO SillasDAO = (SillasDAO) RepositoryFactory.getFactory().get(RepositoryInstance.SillasDAO);
+		UsuariosDAO UsuariosDAO = (UsuariosDAO) RepositoryFactory.getFactory().get(RepositoryInstance.UsuariosDAO);
+		PeliculasDAO PeliculasDAO = (PeliculasDAO) RepositoryFactory.getFactory().get(RepositoryInstance.PeliculasDAO);
+		
+		Usuarios usuario = UsuariosDAO.findById(Usuarios.class, idUsuario);
+		Peliculas pelicula = PeliculasDAO.findById(Peliculas.class, idPelicula);
+		
+		sillas.forEach( id -> {
+			try {
+				Sillas silla = SillasDAO.findById(Sillas.class, id);
+				Boletas boleta = new Boletas();
+				boleta.setPelicula_fk(pelicula);
+				boleta.setUsuario_fk(usuario);
+				boleta.setSilla_fk(silla);
+				
+				BoletasDAO.persist(boleta);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		});
+		
+		DataResponseLogin data = (DataResponseLogin)SpringContex.getApplicationContext().getBean(DataResponseLogin.class);
+		ResponseControllerLogin responseControllerLogin = (ResponseControllerLogin)SpringContex.getApplicationContext().getBean(ResponseControllerLogin.class);
+		
+		data.setCodigoRespuesta("ok");
+		data.setMensaje("Boletas creadas");
+		data.setUsuario(usuario);
+		
+		responseControllerLogin.setData(data);;
+		return responseControllerLogin;
 
 	}
 	
