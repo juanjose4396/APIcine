@@ -82,11 +82,11 @@ public class PeliculasController extends GenericController<Peliculas> {
 		}
 	}
 	
-	@RequestMapping(value = "/{id}/sillas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{id}/funcion/{tipo}/sillas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	public @ResponseBody ResponseControllerSillas getSillas(@PathVariable("id") long id) {
+	public @ResponseBody ResponseControllerSillas getSillas(@PathVariable("id") long id,@PathVariable("tipo") String tipo) {
 		try {
-			return PeliculasService.getSillas(id);
+			return PeliculasService.getSillas(id,tipo);
 		}catch (Exception e) {
 			
 			DataResponseSillas data = (DataResponseSillas)SpringContex.getApplicationContext().getBean(DataResponseSillas.class);

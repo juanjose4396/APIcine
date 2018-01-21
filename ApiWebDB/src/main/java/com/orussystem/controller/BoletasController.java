@@ -1,5 +1,6 @@
 package com.orussystem.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +50,11 @@ public class BoletasController extends GenericController<Boletas> {
 		this.BoletasService = generaricServices;
 	}
 	
-	@RequestMapping(value = "/pelicula/{id}/numero/{numero}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/pelicula/{id}/funcion/{tipo}/numero/{numero}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	public @ResponseBody ResponseControllerAvailability getAvailability(@PathVariable("id") long id,@PathVariable("numero") long numeroBoletas) {
+	public @ResponseBody ResponseControllerAvailability getAvailability(@PathVariable("id") long id,@PathVariable("numero") long numeroBoletas,@PathVariable("tipo") String tipo) {
 		try {
-			return BoletasService.getAvailability(id, numeroBoletas);
+			return BoletasService.getAvailability(id, numeroBoletas,tipo);
 		}catch (Exception e) {
 			
 			DataResponseAvailability data = (DataResponseAvailability)SpringContex.getApplicationContext().getBean(DataResponseAvailability.class);
@@ -74,7 +75,9 @@ public class BoletasController extends GenericController<Boletas> {
 			Long idUsuario = requestControllerCompra.getData().getIdUsuario();
 			Long idPelicula = requestControllerCompra.getData().getIdPelicula();
 			List<Long> sillas = requestControllerCompra.getData().getSillas();
-			return BoletasService.crearBoletas(idUsuario,idPelicula,sillas);
+			String tipo = requestControllerCompra.getData().getTipo();
+			Date fecha = requestControllerCompra.getData().getFecha();
+			return BoletasService.crearBoletas(idUsuario,idPelicula,sillas,tipo,fecha);
 		}catch (Exception e) {
 			
 			DataResponseLogin data = (DataResponseLogin)SpringContex.getApplicationContext().getBean(DataResponseLogin.class);

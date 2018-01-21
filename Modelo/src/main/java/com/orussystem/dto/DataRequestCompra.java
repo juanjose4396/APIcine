@@ -1,6 +1,7 @@
 package com.orussystem.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -13,6 +14,8 @@ public class DataRequestCompra implements Serializable{
 	private Long idUsuario;
 	private Long idPelicula;
 	private List<Long> sillas;
+	private String tipo;
+	private Date fecha;
 	
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -32,5 +35,17 @@ public class DataRequestCompra implements Serializable{
 	public void setSillas(List<Long> sillas) {
 		this.sillas = sillas;
 	}
-
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	
 }

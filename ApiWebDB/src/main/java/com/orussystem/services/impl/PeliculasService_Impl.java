@@ -80,11 +80,11 @@ public class PeliculasService_Impl extends GenericServicesImpl implements Pelicu
 	}
 
 	@Override
-	public ResponseControllerSillas getSillas(Long id) throws Exception {
+	public ResponseControllerSillas getSillas(Long id,String tipo) throws Exception {
 		
 		SillasDAO SillasDAO = (SillasDAO) RepositoryFactory.getFactory().get(RepositoryInstance.SillasDAO);
 		BoletasDAO BoletasDAO = (BoletasDAO) RepositoryFactory.getFactory().get(RepositoryInstance.BoletasDAO);
-		List<Boletas> boletas = BoletasDAO.findPelicula(id);
+		List<Boletas> boletas = BoletasDAO.findPelicula(id,tipo);
 		
 		List<Sillas> sillas = SillasDAO.findFilter(null);
 		List<Sillas> sillasOcupadas= obtenerSillasOcupadas(boletas);

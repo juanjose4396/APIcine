@@ -21,7 +21,8 @@ public class SillasDAO_Impl extends GenericDAOImpl<Sillas, Serializable> impleme
 
 	@Override
 	public List<Sillas> findFilter(Sillas t) throws Exception {
-		Criteria criteria = getSession().createCriteria(Sillas.class, "s").addOrder(Order.asc("ubicacion"));
+		Criteria criteria = getSession().createCriteria(Sillas.class, "s").addOrder(Order.asc("ubicacion"))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.list();
 	}
 

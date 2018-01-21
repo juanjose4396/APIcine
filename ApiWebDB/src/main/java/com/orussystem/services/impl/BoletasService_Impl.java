@@ -4,6 +4,7 @@ package com.orussystem.services.impl;
 import com.orussystem.services.interfaz.BoletasService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +46,11 @@ public class BoletasService_Impl extends GenericServicesImpl implements BoletasS
 	}
 
 	@Override
-	public ResponseControllerAvailability getAvailability(Long id, Long numeroBoletas) throws Exception {
+	public ResponseControllerAvailability getAvailability(Long id, Long numeroBoletas,String tipo) throws Exception {
 		DataResponseAvailability data = (DataResponseAvailability)SpringContex.getApplicationContext().getBean(DataResponseAvailability.class);
 		ResponseControllerAvailability responseControllerAvailability = (ResponseControllerAvailability)SpringContex.getApplicationContext().getBean(ResponseControllerAvailability.class);
 
-		List<Boletas> boletas = BoletasDAO.findPelicula(id);
+		List<Boletas> boletas = BoletasDAO.findPelicula(id,tipo);
 		
 		if(boletas.isEmpty()) {
 			data.setCodigoRespuesta("ok");
@@ -99,7 +100,7 @@ public class BoletasService_Impl extends GenericServicesImpl implements BoletasS
 	}
 	
 	@Override
-	public ResponseControllerLogin crearBoletas(Long idUsuario, Long idPelicula,List<Long> sillas) throws Exception {
+	public ResponseControllerLogin crearBoletas(Long idUsuario, Long idPelicula,List<Long> sillas,String tipo,Date fecha) throws Exception {
 		
 		SillasDAO SillasDAO = (SillasDAO) RepositoryFactory.getFactory().get(RepositoryInstance.SillasDAO);
 		UsuariosDAO UsuariosDAO = (UsuariosDAO) RepositoryFactory.getFactory().get(RepositoryInstance.UsuariosDAO);
@@ -115,6 +116,8 @@ public class BoletasService_Impl extends GenericServicesImpl implements BoletasS
 				boleta.setPelicula_fk(pelicula);
 				boleta.setUsuario_fk(usuario);
 				boleta.setSilla_fk(silla);
+				boleta.setTipo(tipo);
+				boleta.setFecha(fecha);
 				
 				BoletasDAO.persist(boleta);
 			} catch (Exception e) {

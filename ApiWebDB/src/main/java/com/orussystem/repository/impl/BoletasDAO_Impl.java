@@ -26,12 +26,15 @@ public class BoletasDAO_Impl extends GenericDAOImpl<Boletas, Serializable> imple
 	}
 
 	@Override
-	public List<Boletas> findPelicula(Long id) throws Exception {
+	public List<Boletas> findPelicula(Long id,String tipo) throws Exception {
 		Criteria criteria = getSession().createCriteria(Boletas.class, "b");
 		if(!criteria.list().isEmpty()) {
-			criteria.createCriteria("pelicula_fk","p").add(Restrictions.eq("p.id",id));
+			criteria.createCriteria("pelicula_fk","p").add(Restrictions.eq("p.id",id))
+			.add(Restrictions.eq("b.tipo", tipo));
+			//criteria.add(Restrictions.eq("tipo", tipo));
 			return criteria.list();
 		}
+		
 		return criteria.list();
 	}
 
