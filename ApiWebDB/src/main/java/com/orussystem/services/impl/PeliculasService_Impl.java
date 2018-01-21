@@ -31,6 +31,7 @@ import com.orussystem.response.ResponseControllerSillas;
 public class PeliculasService_Impl extends GenericServicesImpl implements PeliculasService{
 	
 	private PeliculasDAO PeliculasDAO;
+	private Double total= 0.0;
 	
 	public PeliculasService_Impl() {}
 	
@@ -63,15 +64,26 @@ public class PeliculasService_Impl extends GenericServicesImpl implements Pelicu
 	public ResponseControllerPelicula getPelicula(Long id) throws Exception {
 		
 		Peliculas pelicula = PeliculasDAO.findById(Peliculas.class, id);
+		BoletasDAO BoletasDAO = (BoletasDAO)RepositoryFactory.getFactory().get(RepositoryInstance.BoletasDAO);
 		
 		if(pelicula==null) {
 			throw new Exception("La pelicula no existe");
 		}
 		
+		List<Boletas>boletas = BoletasDAO.findIdPelicula(id);
+		
+		boletas.forEach( boleta -> {
+			total+=boleta.getPelicula_fk().getPrecio();
+		});
+		
 		DataResponsePelicula data = (DataResponsePelicula)SpringContex.getApplicationContext().getBean(DataResponsePelicula.class);
 		data.setCodigoRespuesta("ok");
 		data.setMensaje("Operacion exitosa");
 		data.setPelicula(pelicula);
+		data.setCantidadPersonas(boletas.size()+"");
+		data.setDineroRecaudado(total);
+		
+		total=0.0;
 		
 		ResponseControllerPelicula responseControllerPelicula = (ResponseControllerPelicula)SpringContex.getApplicationContext().getBean(ResponseControllerPelicula.class);
 		responseControllerPelicula.setData(data);
@@ -110,6 +122,5 @@ public class PeliculasService_Impl extends GenericServicesImpl implements Pelicu
 		});
 		
 		return sillasOcupadas;
-	}
-	
+	}	
 }

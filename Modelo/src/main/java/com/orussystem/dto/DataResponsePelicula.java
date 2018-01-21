@@ -18,6 +18,10 @@ public class DataResponsePelicula implements Serializable{
 	private String mensaje;
 	
 	private Peliculas pelicula;
+	
+	private String cantidadPersonas;
+	
+	private Double dineroRecaudado;
 
 	public Peliculas getPelicula() {
 		return pelicula;
@@ -41,6 +45,22 @@ public class DataResponsePelicula implements Serializable{
 
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
+	}
+
+	public String getCantidadPersonas() {
+		return cantidadPersonas;
+	}
+
+	public void setCantidadPersonas(String cantidadPersonas) {
+		this.cantidadPersonas = cantidadPersonas;
+	}
+
+	public Double getDineroRecaudado() {
+		return dineroRecaudado;
+	}
+
+	public void setDineroRecaudado(Double dineroRecaudado) {
+		this.dineroRecaudado = dineroRecaudado;
 	}
 	
 }

@@ -8,4 +8,5 @@ import com.orussystem.modelo.Boletas;
 
 public interface BoletasDAO extends GenericDAO<Boletas, Serializable> {
 	public List<Boletas> findPelicula(Long id,String tipo) throws Exception;
+	public List<Boletas> findIdPelicula(Long id) throws Exception;
 }

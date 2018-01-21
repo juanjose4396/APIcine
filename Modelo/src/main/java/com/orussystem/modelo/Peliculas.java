@@ -28,6 +28,7 @@ public class Peliculas {
 	private String url;
 	private Long id;
 	private Date fecha;
+	private Long precio;
 	private List<Boletas> boleta = new ArrayList<Boletas>(0);
 	
 	public Peliculas() {
@@ -102,6 +103,15 @@ public class Peliculas {
 
 	public void setBoleta(List<Boletas> boleta) {
 		this.boleta = boleta;
+	}
+
+	@Column(name = "precio")
+	public Long getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Long precio) {
+		this.precio = precio;
 	}
 	
 	
