@@ -11,15 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.OrderBy;
+
 
 @Entity
 @Table(name = "usuarios")
@@ -31,6 +29,7 @@ public class Usuarios implements Serializable{
 	private String email;
 	private String password;
 	private List<Boletas> boleta = new ArrayList<Boletas>(0);
+	private Roles rol_fk;
 	
 	public Usuarios(){
 		
@@ -39,12 +38,13 @@ public class Usuarios implements Serializable{
 		this.id=id;
 	}
 	
-	public Usuarios(Long id, String email, String password, List<Boletas> boleta) {
+	public Usuarios(Long id, String email, String password, List<Boletas> boleta, Roles rol_fk) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.boleta = boleta;
+		this.rol_fk = rol_fk;
 	}
 	
 	@Id
@@ -81,6 +81,15 @@ public class Usuarios implements Serializable{
 	}
 	public void setBoleta(List<Boletas> boleta) {
 		this.boleta = boleta;
+	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn (name="rol_fk")
+	public Roles getRol_fk() {
+		return rol_fk;
+	}
+	public void setRol_fk(Roles rol_fk) {
+		this.rol_fk = rol_fk;
 	}
 	
 }

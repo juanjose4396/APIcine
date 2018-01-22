@@ -1,7 +1,7 @@
 package com.orussystem.response;
 
 import org.springframework.stereotype.Component;
-import com.orussystem.dto.DataResponsePeliculas;
+import com.orussystem.dto.DataResponseDetalleVentas;
 
 /**
  * Clase que representa el bean correspondiente a la respuesta utilizada por un servicio,
@@ -12,16 +12,15 @@ import com.orussystem.dto.DataResponsePeliculas;
  */
 
 @Component
-public class ResponseControllerPeliculas {
-	private DataResponsePeliculas data;
+public class ResponseControllerDetalleVentas {
+	private DataResponseDetalleVentas data;
 
-	public DataResponsePeliculas getData() {
+	public DataResponseDetalleVentas getData() {
 		return data;
 	}
 
-	public void setData(DataResponsePeliculas data) {
+	public void setData(DataResponseDetalleVentas data) {
 		this.data = data;
 	}
-	
 	
 }

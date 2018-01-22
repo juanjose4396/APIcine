@@ -1,8 +1,8 @@
 package com.orussystem.dto;
 
 import java.io.Serializable;
+import java.util.List;
 import org.springframework.stereotype.Component;
-import com.orussystem.modelo.Peliculas;
 
 /**
  * Clase representativa al bean utilizado como dto para representar la data requerida por la respuesta de un 
@@ -13,7 +13,7 @@ import com.orussystem.modelo.Peliculas;
  */
 
 @Component
-public class DataResponsePelicula implements Serializable{
+public class DataResponseDetalleVentas implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -21,18 +21,24 @@ public class DataResponsePelicula implements Serializable{
 	
 	private String mensaje;
 	
-	private Peliculas pelicula;
+	private List<DetalleVenta> detalleVenta;
 	
-	private String cantidadPersonas;
-	
-	private Double dineroRecaudado;
+	private Double totalCine;
 
-	public Peliculas getPelicula() {
-		return pelicula;
+	public Double getTotalCine() {
+		return totalCine;
 	}
 
-	public void setPelicula(Peliculas pelicula) {
-		this.pelicula = pelicula;
+	public void setTotalCine(Double totalCine) {
+		this.totalCine = totalCine;
+	}
+
+	public List<DetalleVenta> getDetalleVenta() {
+		return detalleVenta;
+	}
+
+	public void setDetalleVenta(List<DetalleVenta> detalleVenta) {
+		this.detalleVenta = detalleVenta;
 	}
 
 	public String getCodigoRespuesta() {
@@ -49,22 +55,6 @@ public class DataResponsePelicula implements Serializable{
 
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
-	}
-
-	public String getCantidadPersonas() {
-		return cantidadPersonas;
-	}
-
-	public void setCantidadPersonas(String cantidadPersonas) {
-		this.cantidadPersonas = cantidadPersonas;
-	}
-
-	public Double getDineroRecaudado() {
-		return dineroRecaudado;
-	}
-
-	public void setDineroRecaudado(Double dineroRecaudado) {
-		this.dineroRecaudado = dineroRecaudado;
 	}
 	
 }

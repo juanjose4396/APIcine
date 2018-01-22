@@ -1,9 +1,7 @@
 package com.orussystem.modelo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,17 +10,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.hql.internal.classic.ClauseParser;
-import org.springframework.core.annotation.Order;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Entidad que representa la tabla sillas de la base de datos, contiene los atributos representativos a las columnas
+ * de la tabla y las anotaciones correspondientes para mapear dichos atributos y las relaciones de la tabla
+ * @author: Juan Jose Perdomo Forero
+ * @version: 21/01/2017
+ * @see <a href = "https://github.com/juanjose4396/APIcine" /> Repositorio del proyecto </a>
+ */
 
 @Entity
 @Table(name = "sillas")

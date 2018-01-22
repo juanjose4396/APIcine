@@ -1,8 +1,6 @@
 package com.orussystem.modelo;
 
 import java.util.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,13 +9,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+/**
+ * Entidad que representa la tabla boletas de la base de datos, contiene los atributos representativos a las columnas
+ * de la tabla y las anotaciones correspondientes para mapear dichos atributos y las relaciones de la tabla
+ * @author: Juan Jose Perdomo Forero
+ * @version: 21/01/2017
+ * @see <a href = "https://github.com/juanjose4396/APIcine" /> Repositorio del proyecto </a>
+ */
 
 @Entity
 @Table(name = "boletas")

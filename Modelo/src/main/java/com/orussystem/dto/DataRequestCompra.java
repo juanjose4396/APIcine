@@ -3,14 +3,20 @@ package com.orussystem.dto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
+
+/**
+ * Clase representativa al bean utilizado como dto para representar la data requerida por la respuesta de un 
+ * servicio, contiene los atributos y los metodos set y get necesarios para persistir los datos
+ * @author: Juan Jose Perdomo Forero
+ * @version: 21/01/2017
+ * @see <a href = "https://github.com/juanjose4396/APIcine" /> Repositorio del proyecto </a>
+ */
 
 @Component
 public class DataRequestCompra implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
 	private Long idUsuario;
 	private Long idPelicula;
 	private List<Long> sillas;
